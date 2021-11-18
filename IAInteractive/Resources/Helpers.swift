@@ -114,7 +114,7 @@ struct Constants {
         static let cornerRadius: CGFloat = 15.0
         static let heightLogo: CGFloat = 90.0
         static let widthLogo: CGFloat = 90.0
-        
+        static let logginPadding: CGFloat = 16.0
     }
     
     struct UserDefaultsKey {
