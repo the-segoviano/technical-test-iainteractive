@@ -1,18 +1,18 @@
 //
-//  ViewController.swift
+//  MovieDetailViewController.swift
 //  IAInteractive
 //
-//  Created by Luis Segoviano on 17/11/21.
+//  Created by Luis Segoviano on 18/11/21.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class MovieDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = .white
+        
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Here is where everything start!"
@@ -27,6 +27,3 @@ class ViewController: UIViewController {
     
     
 }
-
-
-

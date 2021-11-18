@@ -12,11 +12,11 @@ class HomeTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let startViewController = ViewController()
+        let startViewController = CarteleraViewController()
         startViewController.title = "Cartelera"
         startViewController.tabBarItem.image = UIImage(named: "home")
         
-        let profileViewController = ViewController()
+        let profileViewController = ProfileUserViewController()
         profileViewController.title = "Perfil"
         profileViewController.tabBarItem.image = UIImage(named: "avatar")
         
