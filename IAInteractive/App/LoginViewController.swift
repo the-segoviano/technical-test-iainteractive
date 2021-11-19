@@ -112,7 +112,8 @@ class LoginViewController: BaseViewController {
         do {
             try login()
             
-            fetchLogin()
+            continueToApp()
+            // fetchLogin()
             
         } catch LoginError.incompleteForm {
             Alert.showIncompleteFormAlert(on: self)
@@ -126,7 +127,6 @@ class LoginViewController: BaseViewController {
     
     
     func fetchLogin() {
-        
         let params: [String: Any] = ["username" : "pruebas_beto_ia@yahoo.com",
                       "password" : "Pruebas01",
                       "grant_type" : "password",
@@ -134,41 +134,6 @@ class LoginViewController: BaseViewController {
                       "client_secret" : "c840457e777b4fee9b510fbcd4985b68",
                       "country_code" : "MX"]
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: params)
-        var request = URLRequest(url: Endpoint.login.url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        //request.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Accept")
-        request.setValue("application/json", forHTTPHeaderField: "Accept-Encoding")
-        request.setValue("stage_HNYh3RaK_Test", forHTTPHeaderField: "api_key")
-        request.httpBody = jsonData
-        
-        print(" despues de setear datos ")
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            print(" response ", response, "\n")
-            print(" error ", error, "\n")
-            
-            guard let data = data,
-                  error == nil else
-            {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                print(responseJSON)
-            }
-            
-        }
-
-        task.resume()
-        
-        
-        /*
         RequestManager.userLogin(reference: self,
                                  withParams: params)
         { [weak self] result in
@@ -184,26 +149,7 @@ class LoginViewController: BaseViewController {
                     print(" Error Found LOGIN: ", error.localizedDescription)
                 }
             }
-            
-            
-            */
-            
-        /*
-            if result != nil {
-                DispatchQueue.main.async {
-                    if let loginResponse = result {
-                        print(" loginResponse.user.username ", loginResponse.user.username, "\n")
-                    }
-                }
-            }
-            else{
-                print(" Login - Error - Parse ", error, "\n")
-                if let message = error.errors.first {
-                    Alert.showErrorRequestAlert(on: self, withMessage: message.description)
-                }
-            }
-            */
-        // }
+        }
         
     } // fetchLogin
     

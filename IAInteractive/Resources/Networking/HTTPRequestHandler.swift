@@ -61,12 +61,9 @@ final class HTTPRequestHandler {
                 completion(.failure("Error al procesar información." as! Error))
                 return
             }
-            print("\n\n httpBody ", httpBody.description, "\n\n")
             request.httpBody = httpBody
         }
         request.allHTTPHeaderFields = headers
-        
-        print("\n request.allHTTPHeaderFields ", request.allHTTPHeaderFields, "\n")
         
         let session: URLSession = URLSession(configuration: urlSessionConfiguration)
         let task = session.dataTask(with: request) { data, response, error in
@@ -79,31 +76,13 @@ final class HTTPRequestHandler {
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200
             {
-                print(" httpStatus.statusCode ", httpStatus.statusCode)
-                if let data = data {
-                    do {
-                        if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                            print("\n\n json - NO 200 ", json, "\n\n")
-                        }
-                    } catch {
-                        print(" Error parsing JSON - NO 200 ", error.localizedDescription, "\n")
-                    }
-                }
                 completion(.failure(ErrorHandler.getErrorByCode(code: httpStatus.statusCode)))
                 return
             }
             
             if let data = data {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                        print("\n\n json - 200 ", json, "\n\n")
-                    }
-                } catch {
-                    print(error)
-                }
                 completion(.success(data))
             }
-            
         }
         task.resume()
     }
