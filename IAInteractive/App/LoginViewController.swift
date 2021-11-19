@@ -113,6 +113,7 @@ class LoginViewController: BaseViewController {
             try login()
             
             continueToApp()
+            // fetchLogin()
             
         } catch LoginError.incompleteForm {
             Alert.showIncompleteFormAlert(on: self)
@@ -123,6 +124,34 @@ class LoginViewController: BaseViewController {
         }
         
     }
+    
+    
+    func fetchLogin() {
+        let params: [String: Any] = ["username" : "pruebas_beto_ia@yahoo.com",
+                      "password" : "Pruebas01",
+                      "grant_type" : "password",
+                      "client_id" : "IATestCandidate",
+                      "client_secret" : "c840457e777b4fee9b510fbcd4985b68",
+                      "country_code" : "MX"]
+        
+        RequestManager.userLogin(reference: self,
+                                 withParams: params)
+        { [weak self] result in
+            switch result {
+            case .success(let loginResponse):
+                DispatchQueue.main.async {
+                    
+                    print(" TERMINA carteleraResponse ", loginResponse, "\n")
+                    
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(" Error Found LOGIN: ", error.localizedDescription)
+                }
+            }
+        }
+        
+    } // fetchLogin
     
     
     private func continueToApp() {

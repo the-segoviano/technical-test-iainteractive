@@ -21,6 +21,33 @@ class CarteleraViewController: UICollectionViewController, UICollectionViewDeleg
     }
     
     
+    func fetchCartelera() {
+        RequestManager.fetchCartelera(reference: self) { [weak self] result in
+            switch result {
+            case .success(let carteleraResponse):
+                DispatchQueue.main.async {
+                    
+                    print(" TERMINA carteleraResponse ", carteleraResponse, "\n")
+                    
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(" Error Found: ", error.localizedDescription)
+                }
+            }
+            
+        }
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        fetchCartelera()
+        
+    }
+    
+    
     //
     // initialized with a non-nil layout parameter
     //
